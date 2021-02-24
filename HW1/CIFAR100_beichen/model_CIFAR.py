@@ -29,7 +29,7 @@ class ru_ResNET34(tf.keras.layers.Layer):
 def model_def():
     model = tf.keras.Sequential()
     
-    model.add(tf.keras.layers.Conv2D(64,3,strides = 1, input_shape = [32,32,3],
+    model.add(tf.keras.layers.Conv2D(64,7,strides = 1, input_shape = [32,32,3],
                                     padding = "same", use_bias = False))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation("relu"))
