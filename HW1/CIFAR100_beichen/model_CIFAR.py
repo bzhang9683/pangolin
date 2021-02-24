@@ -29,13 +29,13 @@ class ru_ResNET34(tf.keras.layers.Layer):
 def model_def():
     model = tf.keras.Sequential()
     
-    model.add(tf.keras.layers.Conv2D(64,3,strides = 2, input_shape = [32,32,3],
+    model.add(tf.keras.layers.Conv2D(64,3,strides = 1, input_shape = [32,32,3],
                                     padding = "same", use_bias = False))
     model.add(tf.keras.layers.BatchNormalization())
     model.add(tf.keras.layers.Activation("relu"))
-    model.add(tf.keras.layers.MaxPool2D(pool_size=3, strides = 2, padding = "same"))
+    model.add(tf.keras.layers.MaxPool2D(pool_size=3, strides = 1, padding = "same"))
     prev_filters = 64
-    structure = [64]*1+[128]*2+[256]*1
+    structure = [64]*2+[128]*2+[256]*2+[512]*2
     print(structure)
     for filters in structure:
         if filters == prev_filters:

@@ -1,11 +1,11 @@
 import tensorflow as tf
 import tensorflow_datasets as tfds
 import matplotlib.pyplot as plt
+import numpy as np
 def loading_cifar100():
     '''
     Required package: TensorFlow
     '''
-    (X_train, y_train), (X_test, y_test) = tf.keras.datasets.cifar100.load_data('fine')
     train_ds = tfds.load('cifar100',split='train[:-40%]', batch_size=-1) # If batch_size=-1, will return the full dataset as tf.Tensors.
     X_train = tf.cast(train_ds['image'], tf.float32)/255
     y_train = train_ds['label']
@@ -35,3 +35,4 @@ def plot_diagnostics(history):
     plt.plot(history.history['accuracy'], color='blue', label='train')
     plt.plot(history.history['val_accuracy'], color='red', label='validation')
     plt.title('Classification Accuracy')
+

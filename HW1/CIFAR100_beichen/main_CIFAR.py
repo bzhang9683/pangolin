@@ -12,6 +12,10 @@ from tensorflow.keras.utils import to_categorical
 #%%
 #loading training, validation, and test data sets
 X_train, y_train_encoded, X_val, y_val_encoded, X_test, y_test = util.loading_cifar100()
+#normalize image
+X_train = tf.image.per_image_standardization(X_train)
+X_val = tf.image.per_image_standardization(X_val)
+X_test = tf.image.per_image_standardization(X_test)
 
 print('The size of training data: ',X_train.shape[0])
 #%%
