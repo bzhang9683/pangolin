@@ -6,18 +6,19 @@ def loading_cifar100():
     '''
     Required package: TensorFlow
     '''
-    train_ds = tfds.load('cifar100',split='train[:-40%]', batch_size=-1) # If batch_size=-1, will return the full dataset as tf.Tensors.
+    train_ds = tfds.load('cifar100',split='train[:-30%]', batch_size=-1) 
+    # If batch_size=-1, will return the full dataset as tf.Tensors.
     X_train = tf.cast(train_ds['image'], tf.float32)/255
     y_train = train_ds['label']
     C = tf.constant(100, name='labels') #the number of labels
     one_hot_train = tf.one_hot(y_train, C)
     y_train_encoded = one_hot_train
-    val_ds = tfds.load('cifar100',split='train[-40%:-30%]', batch_size=-1)
+    val_ds = tfds.load('cifar100',split='train[-30%:-20%]', batch_size=-1)
     X_val = tf.cast(val_ds['image'], tf.float32)/255
     y_val = val_ds['label']
     one_hot_val = tf.one_hot(y_val, C)
     y_val_encoded = one_hot_val
-    test_ds = tfds.load('cifar100',split='train[-30%:]', batch_size=-1)
+    test_ds = tfds.load('cifar100',split='train[-20%:]', batch_size=-1)
     X_test = tf.cast(test_ds['image'], tf.float32)/255
     y_test = test_ds['label']
     #one_hot_test = tf.one_hot(y_test, C)
@@ -26,13 +27,21 @@ def loading_cifar100():
 
 def plot_diagnostics(history):
     #plot loss curve
-    plt.subplot(211)
+    plt.figure()
     plt.plot(history.history['loss'], color='blue', label='train')
     plt.plot(history.history['val_loss'], color='red', label='validation')
+    plt.legend()
     plt.title('Cross Entropy Loss')
+    plt.savefig('loss_curve.png')
     #plot accuracy curve
-    plt.subplot(212)
+    plt.figure()
     plt.plot(history.history['accuracy'], color='blue', label='train')
     plt.plot(history.history['val_accuracy'], color='red', label='validation')
+    plt.legend()
     plt.title('Classification Accuracy')
+    plt.savefig('accu_curve.png')
 
+def confidence_interval(error,n):
+    low = error -1.96 *np.sqrt((error * (1-error)) / n)
+    high = error + 1.96 *np.sqrt((error * (1-error)) / n)
+    return low, high
