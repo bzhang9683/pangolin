@@ -4,7 +4,7 @@ class ru_ResNET34(tf.keras.layers.Layer):
         super().__init__(**kwargs)
         self.activation = tf.keras.activations.get(activation)
         self.main_layers = [
-            tf.keras.layers.Conv2D(filters, 3, strides = strides, padding = 'same', kernal_regularizer = ,use_bias = False),
+            tf.keras.layers.Conv2D(filters, 3, strides = strides, padding = 'same',use_bias = False),
             tf.keras.layers.BatchNormalization(),
             self.activation,
             tf.keras.layers.Conv2D(filters, 3, strides = 1, padding = 'same', use_bias = False),
