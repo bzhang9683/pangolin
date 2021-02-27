@@ -2,23 +2,24 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import matplotlib.pyplot as plt
 import numpy as np
+
 def loading_cifar100():
     '''
     Required package: TensorFlow
     '''
-    train_ds = tfds.load('cifar100',split='train[:-30%]', batch_size=-1) 
+    (train_ds,val_ds,test_ds) = tfds.load(name='cifar100',split=['train[:-20%]','train[-20%:-10%]','train[-10%:]'], batch_size=-1)
     # If batch_size=-1, will return the full dataset as tf.Tensors.
     X_train = tf.cast(train_ds['image'], tf.float32)/255
     y_train = train_ds['label']
     C = tf.constant(100, name='labels') #the number of labels
     one_hot_train = tf.one_hot(y_train, C)
     y_train_encoded = one_hot_train
-    val_ds = tfds.load('cifar100',split='train[-30%:-20%]', batch_size=-1)
+    #val_ds = tfds.load(name = 'cifar100',split='train[-30%:-20%]', batch_size=-1, as_supervised=True)
     X_val = tf.cast(val_ds['image'], tf.float32)/255
     y_val = val_ds['label']
     one_hot_val = tf.one_hot(y_val, C)
     y_val_encoded = one_hot_val
-    test_ds = tfds.load('cifar100',split='train[-20%:]', batch_size=-1)
+    #test_ds = tfds.load(name = 'cifar100',split='train[-20%:]', batch_size=-1, as_supervised=True)
     X_test = tf.cast(test_ds['image'], tf.float32)/255
     y_test = test_ds['label']
     #one_hot_test = tf.one_hot(y_test, C)
