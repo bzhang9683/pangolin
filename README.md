@@ -1,9 +1,7 @@
-# Pangolin
-
 2021 Spring Semester
 
 University of Nebraska-Lincoln
 
-CSCE879 Group Work
+CSCE879 Introduction to Deep Learning
 
-团结就是力量！
+Course materials, Hackthon, Homework, and final project.
